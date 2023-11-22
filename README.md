@@ -1,54 +1,83 @@
-# **AI-PDF**
+# AI-PDF
 
-<img src="./assets/AIPDFHomepage.png" height="450" width="900" />
+![AI-PDF Homepage](./assets/AIPDFHomepage.png)
 
-## **Table of Contents**
+## Table of Contents
 
--   [License](#license)
--   [Project Overview](#project-overview)
--   [Purpose and Inspiration](#purpose-and-inspiration)
--   [Issues](#issues)
--   [Technologies Used](#technologies-used)
+- [License](#license)
+- [Project Overview](#project-overview)
+- [Purpose and Inspiration](#purpose-and-inspiration)
+- [Issues](#issues)
+- [Technologies Used](#technologies-used)
+- [Process Overview](#process-overview)
 
-## **License**
+## License
 
 This project is licensed under the MIT license.
 
-## **Project Overview**
+## Project Overview
 
-AI-PDF is an AI document scanner. The user loads a PDF to Amazon S3, and can then ask the AI any question they like regarding the uploaded files. If needed, the AI can pinpoint the page where it found the information.
+AI-PDF is an AI document scanner. Users can load PDFs to Amazon S3, then ask the AI questions about the uploaded files. The AI can even pinpoint the page where it found the information. For confidentiality, login authentication using Clerk is implemented.
 
-Due to the confidentiality of the materials, I added a login authentication using Clerk.
+![AI-PDF Clerk Authentication](./assets/AIPDFClerk.png)
 
-<img src="./assets/AIPDFClerk.png" height="450" width="900"/>
+## Purpose and Inspiration
 
-## **Purpose and Inspiration**
+My client needed an efficient way to parse numerous PDFs for specific information like company protocols and regulations. This solution simplifies their task significantly.
 
-My client had many PDF’s that they had to visually parse when looking for specific information, such as company protocols and specific regulations. They reached out and asked if I could make this task easier.
+## Issues
 
-## **Issues**
+### Large Size PDFs
 
-Large Size PDF’s
-Due to the large sizes of the PDF’s, the large file sizes prevented uploading through the standard 'file upload' feature on the homepage. To get around this, I set up an Amazon S3 account that is shared with my client. This way they can upload the content from the database, avoiding the 15-timeout issue.
+The large file sizes of PDFs prevented their upload through the standard homepage 'file upload' feature. To resolve this, I set up an Amazon S3 account shared with my client, allowing them to upload directly to the database and avoid the 15-second timeout issue.
 
-## **Technologies Used**
+### Extracting Text for AI Parsing
 
-Front End:
+Text extraction from PDFs for AI parsing was a key challenge addressed in the development process.
 
--   React.js
--   Next.js
--   TypeScript
--   TailwindCSS
--   Clerk Auth
--   Langchain
--   Openai-edge
+## Process Overview
 
-Back End:
+### 1. Retrieve the Text from a PDF
 
--   Amazon S3
--   NeonDB
--   PineconeDB
--   PostgreSQL
--   Drizzle ORM
+- **Tool Used**: `pdf-parse` npm package for extracting text.
+- **Functionality**: Function to split text and remove unnecessary characters, like new lines.
 
-Due to this project containing sensitive information about their organization, the client requests that I do not share any data. If you wish to know more, please reach out and I can walk you through this project in greater detail.
+### 2. Vectorize and Embed the Individual Documents
+
+- **Text to Embedding**: Used `openai.createEmbedding` for converting text to embeddings.
+- **Upload to Pinecone DB**: Uploaded vectors to Pinecone DB for future retrieval.
+
+### 3. Retrieving the Appropriate Vectors
+
+- **Vector Search**: Performed searches in Pinecone to match user queries.
+
+### 4. Prepare the Vector Results for OpenAI
+
+- **Formatting with Langchain**: Used Langchain to format vectors for OpenAI comprehension.
+
+### 5. Use OpenAI to Generate the Response
+
+- **AI Response Generation**: Utilized OpenAI to generate responses from prepared content.
+
+## Technologies Used
+
+### Front End:
+
+- React.js
+- Next.js
+- TypeScript
+- TailwindCSS
+- Clerk Auth
+- Langchain
+- Openai-edge
+
+### Back End:
+
+- Amazon S3
+- NeonDB
+- PineconeDB
+- PostgreSQL
+- Drizzle ORM
+
+> Due to the sensitive nature of this project, specific data details cannot be shared. For more information or a detailed walkthrough, please reach out directly.
+
