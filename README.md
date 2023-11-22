@@ -42,8 +42,6 @@ Front End:
 -   Clerk Auth
 -   Langchain
 -   Openai-edge
--   Stripe
--   Open Library API
 
 Back End:
 
