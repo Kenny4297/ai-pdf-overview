@@ -1,7 +1,5 @@
 # **AI-PDF**
 
-<img src="./assets/AIPDFHomepage.png" height="450" width="900" />
-
 ## **Table of Contents**
 
 -   [License](#license)
@@ -19,8 +17,6 @@ This project is licensed under the MIT license.
 AI-PDF is an AI document scanner. The user loads a PDF to Amazon S3, and can then ask the AI any question they like regarding the uploaded files. If needed, the AI can pinpoint the page where it found the information.
 
 Due to the confidentiality of the materials, I added a login authentication using Clerk.
-
-<img src="./assets/AIPDFClerk.png" height="450" width="900"/>
 
 ## **Purpose and Inspiration**
 
