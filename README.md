@@ -1,7 +1,5 @@
 # AI-PDF
 
-![AI-PDF Homepage](./assets/AIPDFHomepage.png)
-
 ## Table of Contents
 
 - [License](#license)
