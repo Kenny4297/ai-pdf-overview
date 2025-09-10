@@ -17,9 +17,7 @@ This project is licensed under the MIT license.
 
 ## Project Overview
 
-AI-PDF is an AI document scanner. Users can load PDFs to Amazon S3, then ask the AI questions about the uploaded files. The AI can even pinpoint the page where it found the information. For confidentiality, login authentication using Clerk is implemented.
-
-![AI-PDF Clerk Authentication](./assets/AIPDFClerk.png)
+AI-PDF is an AI document scanner. Users can load PDFs to Amazon S3, then ask the AI questions about the uploaded files. The AI can even pinpoint the page where it found the information. For confidentiality, login authentication using AWS Cognito is implemented.
 
 ## Purpose and Inspiration
 
@@ -67,7 +65,7 @@ Text extraction from PDFs for AI parsing was a key challenge addressed in the de
 - Next.js
 - TypeScript
 - TailwindCSS
-- Clerk Auth
+- AWS Cognito
 - Langchain
 - Openai-edge
 
