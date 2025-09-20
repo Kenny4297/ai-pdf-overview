@@ -27,6 +27,8 @@ Text extraction from PDFs for AI parsing was a key challenge addressed in the de
 ## Architecture
 **Event-Driven Processing Pipeline:** Upon PDF upload to S3, the system triggers an AWS Lambda function that immediately processes the document through an automated workflow. The document flows through text extraction using pdf-parse, followed by text cleaning to remove formatting artifacts. The cleaned text is then chunked into semantic segments and converted to vector embeddings using OpenAI's text-embedding-ada-002 model. These embeddings are immediately stored in Pinecone's vector database with metadata linking back to the source document and page numbers. This real-time processing approach ensures all uploaded documents are instantly searchable, eliminating query-time processing delays that would negatively impact user experience.
 
+![AI-PDF System Architecture](./assets/images/AIPDFScannerDiagram.png)
+
 ## Process Overview
 ### 1. User Authentication & Document Upload
 - **Tools Used**: AWS Cognito for authentication, Amazon S3 for storage, AWS Lambda for processing
