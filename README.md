@@ -28,22 +28,41 @@ Text extraction from PDFs for AI parsing was a key challenge addressed in the de
 **Event-Driven Processing Pipeline:** Upon PDF upload to S3, the system triggers an AWS Lambda function that immediately processes the document through an automated workflow. The document flows through text extraction using pdf-parse, followed by text cleaning to remove formatting artifacts. The cleaned text is then chunked into semantic segments and converted to vector embeddings using OpenAI's text-embedding-ada-002 model. These embeddings are immediately stored in Pinecone's vector database with metadata linking back to the source document and page numbers. This real-time processing approach ensures all uploaded documents are instantly searchable, eliminating query-time processing delays that would negatively impact user experience.
 
 ## Process Overview
-### 1. Retrieve the Text from a PDF
-- **Tool Used**: `pdf-parse` npm package for extracting text.
-- **Functionality**: Function to split text and remove unnecessary characters, like new lines.
+### 1. User Authentication & Document Upload
+- **Tools Used**: AWS Cognito for authentication, Amazon S3 for storage, AWS Lambda for processing
+- **Functionality**: Secure user login followed by direct PDF upload to S3, which automatically triggers Lambda-based processing pipeline
 
-### 2. Vectorize and Embed the Individual Documents
-- **Text to Embedding**: Used `openai.createEmbedding` for converting text to embeddings.
-- **Upload to Pinecone DB**: Uploaded vectors to Pinecone DB for future retrieval.
+### 2. Text Extraction
+- **Tool Used**: `pdf-parse` npm package for extracting text
+- **Functionality**: Function to extract and split text, removing unnecessary characters like new lines
 
-### 3. Retrieving the Appropriate Vectors
-- **Vector Search**: Performed searches in Pinecone to match user queries.
+### 3. Text Cleaning & Preprocessing  
+- **Tool Used**: Custom preprocessing functions
+- **Functionality**: Remove formatting artifacts and standardize text for optimal embedding quality
 
-### 4. Prepare the Vector Results for OpenAI
-- **Formatting with Langchain**: Used Langchain to format vectors for OpenAI comprehension.
+### 4. Vectorize and Embed Documents
+- **Text to Embedding**: Used `openai.createEmbedding` for converting text to embeddings
+- **Chunking Strategy**: Text segmented into manageable chunks while preserving context
 
-### 5. Use OpenAI to Generate the Response
-- **AI Response Generation**: Utilized OpenAI to generate responses from prepared content.
+### 5. Vector Storage
+- **Upload to Pinecone DB**: Uploaded vectors to Pinecone DB with metadata for future retrieval
+- **Indexing**: Maintains document provenance and page references for citation tracking
+
+### 6. User Query Input
+- **Interface**: Natural language query input through intuitive web interface
+- **Processing**: Queries converted to embeddings using same OpenAI model
+
+### 7. Vector Search & Retrieval
+- **Vector Search**: Performed searches in Pinecone to match user queries
+- **Ranking**: Results ranked by similarity scores and relevance
+
+### 8. Format Results for AI Processing
+- **Formatting with Langchain**: Used Langchain to format vectors for OpenAI comprehension
+- **Context Preparation**: Retrieved content prepared for response generation
+
+### 9. Generate AI Response
+- **AI Response Generation**: Utilized OpenAI (GPT-3.5-turbo/GPT-4) to generate responses from prepared content
+- **Citation Integration**: Automatic page-level citation generation for source verification
 
 ## Technologies Used
 ### Front End:
