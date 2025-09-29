@@ -19,7 +19,7 @@ My client needed an efficient way to parse numerous PDFs for specific informatio
 
 ## Issues
 ### Large Size PDFs
-The large file sizes of PDFs prevented their upload through the standard homepage 'file upload' feature. To resolve this, I set up an Amazon S3 account shared with my client, allowing them to upload directly to the database and avoid the 15-second timeout issue.
+The large file sizes of PDFs prevented their upload through the standard homepage 'file upload' feature. To resolve this, I set up an Amazon S3 account shared with my client, allowing them to upload directly to the database and avoid the 15-minute timeout issue.
 
 ### Extracting Text for AI Parsing
 Text extraction from PDFs for AI parsing was a key challenge addressed in the development process.
