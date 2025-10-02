@@ -25,7 +25,7 @@ The large file sizes of PDFs prevented their upload through the standard homepag
 Text extraction from PDFs for AI parsing was a key challenge addressed in the development process.
 
 ## Architecture
-**Event-Driven Processing Pipeline:** Upon PDF upload to S3, the system triggers an AWS Lambda function that immediately processes the document through an automated workflow. The document flows through text extraction using pdf-parse, followed by text cleaning to remove formatting artifacts. The cleaned text is then chunked into semantic segments and converted to vector embeddings using OpenAI's text-embedding-ada-002 model. These embeddings are immediately stored in Pinecone's vector database with metadata linking back to the source document and page numbers. This real-time processing approach ensures all uploaded documents are instantly searchable, eliminating query-time processing delays that would negatively impact user experience.
+**Event-Driven Processing Pipeline:** Upon PDF upload to S3, the system triggers an AWS Lambda function that immediately processes the document through an automated workflow. The document flows through text extraction using pdf-dist, followed by text cleaning to remove formatting artifacts. The cleaned text is then chunked into semantic segments and converted to vector embeddings using OpenAI's text-embedding-ada-002 model. These embeddings are immediately stored in Pinecone's vector database with metadata linking back to the source document and page numbers. This real-time processing approach ensures all uploaded documents are instantly searchable, eliminating query-time processing delays that would negatively impact user experience.
 
 ![AI-PDF System Architecture](./assets/images/AIPDFScannerDiagram.png)
 
@@ -35,7 +35,7 @@ Text extraction from PDFs for AI parsing was a key challenge addressed in the de
 - **Functionality**: Secure user login followed by direct PDF upload to S3, which automatically triggers Lambda-based processing pipeline
 
 ### 2. Text Extraction
-- **Tool Used**: `pdf-parse` npm package for extracting text
+- **Tool Used**: `pdf-dist` npm package for extracting text
 - **Functionality**: Function to extract and split text, removing unnecessary characters like new lines
 
 ### 3. Text Cleaning & Preprocessing  
